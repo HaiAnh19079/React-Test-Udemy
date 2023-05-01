@@ -1,62 +1,122 @@
-import React, { useState } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import {
-    decrement,
-    increment,
-    incrementByAmount,
-    incrementAsync,
-    incrementIfOdd,
-    selectCount,
-} from './redux/counter/counterSlice'
-import styles from './styles/Counter.module.css'
+import React, { useEffect, useState } from 'react'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { Outlet } from 'react-router-dom'
+
+import Footer from './components/Footer'
+import Header from './components/Header'
+import Home from './components/Home'
+
+import BookPage from './pages/book'
+import LoginPage from './pages/login'
+import ContactPage from './pages/contact'
+import RegisterPage from './pages/register'
+import { callFetchAccount } from './service/api'
+import { useDispatch, useSelector } from 'react-redux'
+import { getAccountAction } from './redux/account/accountSlice'
+import Loading from './components/Loading'
+import NotFound from './components/NotFound'
+import AdminPage from './pages/Admin'
+import ProtectedRoute from './components/ProtectedRoute'
+
+const Layout = () => {
+    return (
+        <div className="layout-app">
+            <Header />
+            <Outlet />
+            <Footer />
+        </div>
+    )
+}
 
 export default function App() {
-    const count = useSelector(selectCount)
     const dispatch = useDispatch()
-    const [incrementAmount, setIncrementAmount] = useState('2')
+    const isAuthenticated = useSelector(state => state.account.isAuthenticated)
+    const getAccount = async () => {
+        if (
+            window.location.pathname === '/login' ||
+            window.location.pathname === '/admin' ||
+            window.location.pathname === '/register'
+        )
+            return
 
-    const incrementValue = Number(incrementAmount) || 0
+        const res = await callFetchAccount()
+
+        if (res && res.data) {
+            dispatch(getAccountAction(res.data))
+        }
+    }
+
+    useEffect(() => {
+        getAccount()
+    }, [])
+
+    const router = createBrowserRouter([
+        {
+            path: '/',
+            element: <Layout />,
+            errorElement: <NotFound />,
+            children: [
+                { index: true, element: <Home /> },
+                {
+                    path: 'contact',
+                    element: <ContactPage />,
+                },
+                {
+                    path: 'book',
+                    element: <BookPage />,
+                },
+            ],
+        },
+        {
+            path: '/login',
+            element: <LoginPage />,
+            // errorElement: <div>404 not found</div>,
+        },
+        {
+            path: '/register',
+            element: <RegisterPage />,
+            errorElement: <div>404 not found re</div>,
+        },
+
+        {
+            path: '/admin',
+            element: (
+                // <ProtectedRoute>
+                    <Layout />
+                // {/* </ProtectedRoute> */}
+            ),
+            errorElement: <NotFound />,
+            children: [
+                {
+                    index: true,
+                    element: (
+                        <ProtectedRoute>
+                            <AdminPage />
+                        </ProtectedRoute>
+                    ),
+                },
+                // {
+                //     path: 'contact',
+                //     element: <ContactPage />,
+                // },
+                // {
+                //     path: 'book',
+                //     element: <BookPage />,
+                // },
+            ],
+        },
+    ])
 
     return (
-        <div>
-            <div className={styles.row}>
-                <button
-                    className={styles.button}
-                    aria-label="Decrement value"
-                    onClick={() => dispatch(decrement())}>
-                    -
-                </button>
-                <span className={styles.value}>{count}</span>
-                <button
-                    className={styles.button}
-                    aria-label="Increment value"
-                    onClick={() => dispatch(increment())}>
-                    +
-                </button>
-            </div>
-            <div className={styles.row}>
-                <input
-                    className={styles.textbox}
-                    aria-label="Set increment amount"
-                    value={incrementAmount}
-                    onChange={e => setIncrementAmount(e.target.value)}
-                />
-                <button
-                    className={styles.button}
-                    onClick={() => dispatch(incrementByAmount(incrementValue))}>
-                    Add Amount
-                </button>
-                <button
-                    className={styles.asyncButton}
-                    onClick={() => dispatch(incrementAsync(incrementValue))}>
-                    Add Async
-                </button>
-                <button
-                    className={styles.button}
-                    onClick={() => dispatch(incrementIfOdd(incrementValue))}>
-                    Add If Odd
-                </button>
-            </div>
-        </div>
+        <>
+            {isAuthenticated ||
+            window.location.pathname === '/login' ||
+            window.location.pathname === '/admin' ||
+            window.location.pathname === '/register' ? (
+                <RouterProvider router={router} />
+            ) : (
+                <Loading />
+            )}
+        </>
     )
 }
