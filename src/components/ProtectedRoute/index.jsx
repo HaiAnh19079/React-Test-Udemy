@@ -1,11 +1,29 @@
 import { useSelector } from 'react-redux'
-import { Navigate } from 'react-router-dom'
+import NotPermission from '../NotPermission'
+
+const RoleBaseAuth = props => {
+    const isAdminRoute = window.location.pathname.startsWith('/admin')
+    const user = useSelector(state => state.account.user)
+    const userRole = user.Role
+
+    if (isAdminRoute && userRole === 'ADMIN') {
+        return props.children
+    } else {
+        return <NotPermission />
+    }
+}
 
 const ProtectedRoute = props => {
     const isAuthenticated = useSelector(state => state.account.isAuthenticated)
     return (
         <>
-            {isAuthenticated ? <>{props.children}</> : <Navigate to="/login" replace />}
+            {isAuthenticated ? (
+                <RoleBaseAuth>
+                    <>{props.children}</>
+                </RoleBaseAuth>
+            ) : (
+                <Navigate to="/login" replace />
+            )}
         </>
     )
 }

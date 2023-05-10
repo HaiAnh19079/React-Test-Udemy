@@ -1,0 +1,133 @@
+.wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: var(--default-layout-header-hight, 60px);
+    background: var(--white);
+    box-shadow: 0px 1px 1px rgb(0 0 0 / 12%);
+}
+
+.inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+    width: var(--default-layout-with, 1150px);
+    padding-right: 24px;
+    padding-left: 20px;
+}
+
+.page-header {
+    display: flex;
+    // justify-content: space-between;
+    align-self: center;
+    max-width: 1140px;
+    width: 100%;
+    height: var(--default-layout-header-hight, 60px);
+    color: #808089;
+    margin: 0 auto;
+    line-height: var(--default-layout-header-hight, 60px);
+    &__toggle {
+        display: none;
+    }
+
+    &__top {
+        display: flex;
+        width: 70%;
+        padding: 0 16px;
+        // flex: 1 1 0%;
+        align-items: center;
+    }
+    &__bottom {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+    }
+
+    .header__logo {
+        // width: 100%;
+        gap: 10px;
+        margin-right: 60px;
+
+        .logo {
+            display: flex;
+            align-items: center;
+            color: #61dafb;
+            cursor: pointer;
+        }
+        .icon-react {
+            font-size: 28px;
+            position: relative;
+            // top: 8px;
+            margin-right: 5px;
+        }
+
+        .rotate {
+            -webkit-animation: spin 10s linear infinite;
+            animation: spin 10s linear infinite;
+
+            @-webkit-keyframes spin {
+                100% {
+                    -webkit-transform: rotate(360deg);
+                }
+            }
+
+            @keyframes spin {
+                100% {
+                    transform: rotate(360deg);
+                }
+            }
+        }
+    }
+
+    .header__search {
+        width: 100%;
+        height: 46px;
+        display: flex;
+        position: relative;
+        border: 1px solid rgb(221, 221, 227);
+        border-radius: var(--search-border-radius);
+        overflow: hidden;
+        z-index: 1;
+        align-items: center;
+
+        .search-input {
+            height: 100%;
+            font-size: 1.4rem;
+            line-height: 2.2rem;
+            -webkit-appearance: textfield;
+            -moz-appearance: textfield;
+            appearance: textfield;
+            flex: 1;
+            border: none;
+            outline: none;
+            padding-left: 16px;
+        }
+        
+        .search-btn {
+            height: 100%;
+            width: 50px;
+            background-color: transparent;
+            border: 1px solid #ccc;
+            font-size: 28px;
+            color: rgba(22, 24, 35, 0.34);
+        }
+    }
+    .header-cart {
+        display: flex;
+        margin-right: 32px;
+        margin-left: 32px;
+
+        .icon-cart {
+            font-size: 24px;
+            color: #808089;
+        }
+        &:hover {
+            cursor: pointer;
+        }
+    }
+}

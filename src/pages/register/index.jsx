@@ -8,8 +8,9 @@ import {
     message,
     notification,
 } from 'antd'
-
-import './register.scss'
+import classNames from 'classnames/bind'
+import styles from './register.module.scss'
+const cx = classNames.bind(styles)
 import { Link, useNavigate } from 'react-router-dom'
 import { callRegister } from '../../service/api'
 
@@ -49,11 +50,11 @@ const RegisterPage = () => {
     }
 
     return (
-        <div className="register-page">
-            <main className="main">
-                <div className="container">
-                    <div className="wrapper">
-                        <div className="heading">
+        <div className={cx("register-page")}>
+            <main className={cx("main")}>
+                <div className={cx("container")}>
+                    <div className={cx("wrapper")}>
+                        <div className={cx("heading")}>
                             <h1>Đăng kí người dùng mới</h1>
                             <Divider></Divider>
                         </div>
@@ -127,7 +128,7 @@ const RegisterPage = () => {
                                 <Checkbox>Remember me</Checkbox>
                             </Form.Item> */}
 
-                            <Form.Item wrapperCol={{ offset: 6, span: 16 }}>
+                            <Form.Item wrapperCol={{ offset: 10, span: 16 }}>
                                 <Button
                                     type="primary"
                                     htmlType="submit"
@@ -136,7 +137,7 @@ const RegisterPage = () => {
                                 </Button>
                             </Form.Item>
                             <Divider>Or</Divider>
-                            <p className="text">
+                            <p className={cx("text")}>
                                 Đã có tài khoản ?
                                 <span>
                                     <Link to="/login"> Đăng nhập</Link>

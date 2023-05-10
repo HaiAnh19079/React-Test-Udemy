@@ -61,12 +61,13 @@
             }
         }
     }
-
+    p.text {
+        text-align: center;
+    }
     // Main
     .main {
         .wrapper {
-            max-width: 28rem;
-            width: 100%;
+            width: 576px;
             margin: 2rem auto;
             padding: 2rem 2.5rem;
             border: none;
@@ -80,7 +81,7 @@
                 width: 100%;
                 height: auto;
                 margin-top: 2rem;
-                
+
                 .input-control {
                     display: flex;
                     align-items: center;

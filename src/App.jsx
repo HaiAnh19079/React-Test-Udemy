@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import { Outlet } from 'react-router-dom'
+import React, { useEffect } from 'react'
+import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom'
 
 import Footer from './components/Footer'
 import Header from './components/Header'
@@ -17,6 +16,7 @@ import Loading from './components/Loading'
 import NotFound from './components/NotFound'
 import AdminPage from './pages/Admin'
 import ProtectedRoute from './components/ProtectedRoute'
+import DefaultLayout from './components/DefaultLayout/DefaultLayout'
 
 const Layout = () => {
     return (
@@ -34,7 +34,8 @@ export default function App() {
     const getAccount = async () => {
         if (
             window.location.pathname === '/login' ||
-            window.location.pathname === '/admin' ||
+            window.location.pathname === '/' ||
+            //window.location.pathname === '/admin' ||
             window.location.pathname === '/register'
         )
             return
@@ -53,7 +54,7 @@ export default function App() {
     const router = createBrowserRouter([
         {
             path: '/',
-            element: <Layout />,
+            element: <DefaultLayout />,
             errorElement: <NotFound />,
             children: [
                 { index: true, element: <Home /> },
@@ -70,21 +71,15 @@ export default function App() {
         {
             path: '/login',
             element: <LoginPage />,
-            // errorElement: <div>404 not found</div>,
         },
         {
             path: '/register',
             element: <RegisterPage />,
             errorElement: <div>404 not found re</div>,
         },
-
         {
             path: '/admin',
-            element: (
-                // <ProtectedRoute>
-                    <Layout />
-                // {/* </ProtectedRoute> */}
-            ),
+            element: <DefaultLayout />,
             errorElement: <NotFound />,
             children: [
                 {
@@ -95,14 +90,13 @@ export default function App() {
                         </ProtectedRoute>
                     ),
                 },
-                // {
-                //     path: 'contact',
-                //     element: <ContactPage />,
-                // },
-                // {
-                //     path: 'book',
-                //     element: <BookPage />,
-                // },
+                {
+                    path: 'user',
+                    element:
+                        <ProtectedRoute>
+                            <BookPage />,
+                        </ProtectedRoute>
+                },
             ],
         },
     ])
@@ -110,9 +104,10 @@ export default function App() {
     return (
         <>
             {isAuthenticated ||
-            window.location.pathname === '/login' ||
-            window.location.pathname === '/admin' ||
-            window.location.pathname === '/register' ? (
+                window.location.pathname === '/login' ||
+                window.location.pathname === '/' ||
+                //window.location.pathname === '/admin' ||
+                window.location.pathname === '/register' ? (
                 <RouterProvider router={router} />
             ) : (
                 <Loading />

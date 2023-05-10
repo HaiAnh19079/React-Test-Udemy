@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import { Button, Divider, Form, Input, message, notification } from 'antd'
-import './login.scss'
+import classNames from 'classnames/bind'
+import styles from './login.module.scss'
+const cx = classNames.bind(styles)
 import { Link, useNavigate } from 'react-router-dom'
 import { callLogin } from '../../service/api'
 import { loginAction } from '../../redux/account/accountSlice'
@@ -46,11 +48,11 @@ const LoginPage = () => {
     }
 
     return (
-        <div className="login-page">
-            <div className="main">
-                <div className="container">
-                    <div className="wrapper">
-                        <div className="heading">
+        <div className={cx("login-page")}>
+            <div className={cx("main")}>
+                <div className={cx("container")}>
+                    <div className={cx("wrapper")}>
+                        <div className={cx("heading")}>
                             <h1>Đăng Nhập</h1>
                             <Divider></Divider>
                         </div>
@@ -96,7 +98,7 @@ const LoginPage = () => {
                                 </Button>
                             </Form.Item>
                             <Divider>Or</Divider>
-                            <p className="text">
+                            <p className={cx("text")}>
                                 Chưa có tài khoản ?
                                 <span>
                                     <Link to="/register"> Đăng Ký</Link>

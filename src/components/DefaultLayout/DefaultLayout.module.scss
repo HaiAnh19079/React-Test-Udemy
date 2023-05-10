@@ -1,0 +1,24 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.container {
+    display: flex;
+    width: var(--default-layout-with);
+    max-width: 100%;
+    align-items: center;
+    justify-content: center;
+    margin-top: var(--default-layout-header-hight);
+}
+
+.content {
+    // flex: 1;
+    margin: 0 16px;
+    width: 692px;
+    max-width: 692px;
+    flex-shrink: 0;
+    padding: 24px 0;
+    position: relative;
+}
