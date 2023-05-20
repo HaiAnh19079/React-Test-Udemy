@@ -1,7 +1,8 @@
-const Home = ()=>{
+const Home = () => {
     return (
         <>
-            Home Page
+            <p style={{height:'1000px'}}
+            >Home Page</p>
         </>
     )
 }

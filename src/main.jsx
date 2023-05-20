@@ -6,11 +6,11 @@ import { store } from './redux/store'
 import GlobalStyles from './components/GlobalStyle'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-    <React.StrictMode>
+    //<React.StrictMode>
         <Provider store={store}>
             <GlobalStyles>
                 <App />
             </GlobalStyles>
         </Provider>
-    </React.StrictMode>
+    //</React.StrictMode>
 )

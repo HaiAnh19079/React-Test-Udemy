@@ -10,3 +10,6 @@ export const callLogin = (username,password)=>{
 export const callFetchAccount = ()=>{
     return axios.get('/api/v1/auth/account')
 }
+export const callLogOut = ()=>{
+    return axios.post('/api/v1/auth/logout')
+}

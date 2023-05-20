@@ -17,25 +17,15 @@ import NotFound from './components/NotFound'
 import AdminPage from './pages/Admin'
 import ProtectedRoute from './components/ProtectedRoute'
 import DefaultLayout from './components/DefaultLayout/DefaultLayout'
+import AdminLayout from './components/AdminLayout'
 
-const Layout = () => {
-    return (
-        <div className="layout-app">
-            <Header />
-            <Outlet />
-            <Footer />
-        </div>
-    )
-}
 
 export default function App() {
     const dispatch = useDispatch()
-    const isAuthenticated = useSelector(state => state.account.isAuthenticated)
+    const isLoading = useSelector(state => state.account.isLoading)
     const getAccount = async () => {
         if (
             window.location.pathname === '/login' ||
-            window.location.pathname === '/' ||
-            //window.location.pathname === '/admin' ||
             window.location.pathname === '/register'
         )
             return
@@ -79,7 +69,9 @@ export default function App() {
         },
         {
             path: '/admin',
-            element: <DefaultLayout />,
+            element: (
+                <AdminLayout />
+            ),
             errorElement: <NotFound />,
             children: [
                 {
@@ -103,10 +95,9 @@ export default function App() {
 
     return (
         <>
-            {isAuthenticated ||
-                window.location.pathname === '/login' ||
+            {isLoading === false ||
                 window.location.pathname === '/' ||
-                //window.location.pathname === '/admin' ||
+                window.location.pathname === '/login' ||
                 window.location.pathname === '/register' ? (
                 <RouterProvider router={router} />
             ) : (

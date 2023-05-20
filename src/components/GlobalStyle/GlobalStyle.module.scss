@@ -25,7 +25,7 @@
 html {
     font-size: 62.5%;
 }
-// Scrollbar CSS
+// // Scrollbar CSS
 html *::-webkit-scrollbar {
     border-radius: 0;
     width: 8px;
@@ -48,5 +48,5 @@ body {
     line-height: 1.5;
     text-rendering: optimizeSpeed;
     color: var(--text-color);
-    overflow-y: overlay;
+    overflow-y: auto;
 }

@@ -1,0 +1,21 @@
+.layout-admin {
+    .admin-header {
+        height: 64px;
+        border-bottom: 1px solid #ebebeb;
+        background-color:  #fff;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 24px;
+    }
+}
+
+.logo {
+    height: 32px;
+    margin: 16px;
+    text-align: 'center';
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    color: #fff;
+}
