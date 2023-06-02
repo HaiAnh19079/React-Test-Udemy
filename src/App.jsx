@@ -18,6 +18,7 @@ import AdminPage from './pages/Admin'
 import ProtectedRoute from './components/ProtectedRoute'
 import DefaultLayout from './components/DefaultLayout/DefaultLayout'
 import AdminLayout from './components/AdminLayout'
+import UserTable from './components/AdminLayout/User/UserTable'
 
 
 export default function App() {
@@ -86,7 +87,7 @@ export default function App() {
                     path: 'user',
                     element:
                         <ProtectedRoute>
-                            <BookPage />,
+                            <UserTable />,
                         </ProtectedRoute>
                 },
             ],

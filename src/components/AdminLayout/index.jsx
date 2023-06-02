@@ -70,6 +70,11 @@ const AdminLayout = () => {
             key: 'order',
             icon: <DollarCircleOutlined />
         },
+        {
+            label: <Link to='/'>Back to Home</Link>,
+            key: 'Home Page',
+            icon: <DollarCircleOutlined />
+        },
     ]
 
     const handleLogout = async () => {
@@ -90,6 +95,7 @@ const AdminLayout = () => {
             <Sider
                 collapsible
                 collapsed={collapsed}
+                theme='light'
             >
                 <div className={cx("logo")} style={{ height: 32, margin: 16, textAlign: 'center' }}>
                     Admin

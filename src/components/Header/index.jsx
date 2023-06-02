@@ -6,15 +6,17 @@ import styles from './header.module.scss'
 import { Badge, Dropdown, Space, message } from 'antd'
 import { DownOutlined } from '@ant-design/icons'
 import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { logOutAction } from '../../redux/account/accountSlice'
 import { callLogOut } from '../../service/api'
+import { useEffect } from 'react'
 const cx = classNames.bind(styles)
 
 const Header = () => {
 
     const isAuthenticated = useSelector(state => state.account.isAuthenticated)
     const user = useSelector(state => state.account.user)
+    const userRole = user.role
     const navigate = useNavigate()
     const dispatch = useDispatch();
 
@@ -30,8 +32,19 @@ const Header = () => {
             >Đăng xuất</label>,
             key: 'logout',
         },
-
     ];
+    if (userRole === 'ADMIN') {
+        console.log("🚀 ~ file: index.jsx:36 ~ Header ~ userRole:", userRole)
+        items.push(
+            {
+                type: 'divider',
+            },
+            {
+                label: <Link to="/admin" style={{ cursor: 'pointer' }}>Admin Dashboard</Link>,
+                key: 'dashboard',
+            })
+    }
+
 
     const handleLogout = async () => {
         const res = await callLogOut();
